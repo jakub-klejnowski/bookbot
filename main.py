@@ -1,11 +1,21 @@
+from stats import count_words
+import sys
+
 def main():
-    with open("books/frankenstein.txt") as f:
+
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    
+    path = sys.argv[1]
+
+    with open(path) as f:
         file_contents = f.read()
 
     number_of_words = count_words(file_contents)
 
     print(f'''
---- Begin report of books/frankenstein.txt ---
+--- Begin report of {path} ---
 {number_of_words} words found in the document
     '''
     )
@@ -14,14 +24,6 @@ def main():
 
     print('''--- End report ---
     ''')
-
-def count_words(text):
-    
-    words = text.split()
-
-    words_cnt = len(words)
-
-    return words_cnt
 
 def count_letters(text):
 
@@ -47,7 +49,7 @@ def format_dict(dict):
     for item in res:
         letter = item["letter"]
         value = item["value"]
-        print(f"The {letter} character was found {value} times")
+        print(f"{letter}: {value}")
 
 def sort_on(dict):
     return dict["value"]
